@@ -5,7 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import service.IService;
+import web.service.CarService;
 
 import java.util.Optional;
 
@@ -13,13 +13,18 @@ import java.util.Optional;
 @RequestMapping("/cars")
 public class CarController {
 
-    @Autowired
-    private IService IService;
+
+    private CarService CarService;
 
     @RequestMapping("")
     public String carList(@RequestParam(required = false) Optional<Integer> count, Model model) {
         Integer carCount = count.orElse(0);
-        model.addAttribute("cars", IService.getCarsList(carCount));
+        model.addAttribute("cars", CarService.getCarsList(carCount));
         return "carList";
+    }
+
+    @Autowired
+    public CarController(web.service.CarService carService) {
+        CarService = carService;
     }
 }

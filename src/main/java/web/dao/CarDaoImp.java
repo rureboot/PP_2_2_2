@@ -1,17 +1,16 @@
-package dao;
+package web.dao;
 
-import model.Car;
+import web.model.Car;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Repository
 public class CarDaoImp implements CarDao {
-    @Autowired
-    private List<Car> cars;
+
+    private final List<Car>  cars;
 
     @Override
     public List<Car> getCarsList(int count) {
@@ -22,5 +21,10 @@ public class CarDaoImp implements CarDao {
         }
 
         return carList;
+    }
+
+    @Autowired
+    public CarDaoImp(List<Car> cars){
+        this.cars = cars;
     }
 }
